@@ -17,11 +17,11 @@
     "ethers": "^5.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "three": "^0.150.1",
-    "three-mesh-ui": "^6.5.3"
+    "three": "^0.150.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^2",
+    "three-mesh-ui": "^6.5.3",
     "troika-three-text": "^0.47.1",
     "vite": "^3"
   }

@@ -9,11 +9,10 @@ import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 import { TWEEN } from 'three/addons/libs/tween.module.min.js';
 import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
+import BoxScene from './components/BoxScene';
+import BoxGallery from './components/BoxGallery';
+import DevComponent from './components/Dev';
 import {Text} from 'troika-three-text';
-import FontJSON from './fonts/Roboto-msdf.json';
-import FontImage from './fonts/Roboto-msdf.png';
-import ViteImage from './vite.svg';
-import space from './textures/space-galaxy.jpg';
 import earth from './textures/earth.jpg';
 import ImgContent1 from './textures/0001.png'
 import ImgContent2 from './textures/0002.png'
@@ -27,20 +26,60 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#bg'),
 });
+const raycaster = new THREE.Raycaster()
+const mouse = new THREE.Vector2()
+
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+render();
+}
 
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
 camera.position.setZ(0.5);
 
+//const componentDev = new DevComponent();
+//scene.add(componentDev);
+
+const myCompo = new BoxScene();
+scene.add(myCompo);
+
+const myGallery = new BoxGallery();
+scene.add(myGallery);
+
+const CardTexture2 = new THREE.TextureLoader().load(ImgContent2);
+
+const Card2 = new THREE.Mesh(
+    new THREE.PlaneGeometry(5, 5, 5),
+    new THREE.MeshBasicMaterial( { map: CardTexture2 } )
+);
+Card2.position.set(5, 3, -3);
+Card2.rotation.set(0, -1, 0);
+scene.add(Card2);
+
 
 const CardTexture = new THREE.TextureLoader().load(ImgContent4);
 
 const Card = new THREE.Mesh(
-    new THREE.PlaneGeometry(5, 5, 5, 80),
+    new THREE.PlaneGeometry(5, 5, 5),
     new THREE.MeshBasicMaterial( { map: CardTexture } )
 );
 Card.position.set(-5, -2, -3);
+Card.rotation.set(0, 1, 0);
 scene.add(Card);
+
+const CardTexture1 = new THREE.TextureLoader().load(ImgContent1);
+
+const Card1 = new THREE.Mesh(
+    new THREE.PlaneGeometry(5, 5, 5, 80),
+    new THREE.MeshBasicMaterial( { map: CardTexture1 } )
+);
+Card1.position.set(5, -2, 3);
+Card1.rotation.set(0, -1, 0);
+scene.add(Card1);
+
 
 const textureFront = new THREE.TextureLoader().load(ImgContent1);
 const textureBack = new THREE.TextureLoader().load(ImgContent2);
@@ -65,7 +104,7 @@ const materialArray = [
   materialRight
 ];
 
-    const geometry = new THREE.BoxGeometry(15, 15, 15, 80);
+    const geometry = new THREE.BoxGeometry(20, 20, 20, 80);
     const material = materialArray;
     const Vite = new THREE.Mesh(geometry, material);
 
@@ -95,6 +134,18 @@ Header.color = 0xFFFFFF
 scene.add(Header)
 Header.sync()
 
+const SubTitle = new Text()
+
+SubTitle.text = 'Ini Sub Title'
+SubTitle.fontSize = 1
+SubTitle.position.z = 5
+SubTitle.position.x = -6
+SubTitle.rotation.set(0, 1, 0);
+SubTitle.color = 0xFFFFFF
+
+scene.add(SubTitle)
+SubTitle.sync()
+
 const Description = new Text()
 
 Description.text = 'Get started your desired.'
@@ -107,6 +158,34 @@ Description.color = 0xFF0000
 scene.add(Description)
 Description.sync()
 
+const Dev = new Text()
+
+Dev.text = 'Masih Tahap Pengembangan'
+Dev.fontSize = 1
+Dev.textAlign= 'center'
+Dev.position.z = 15
+Dev.position.x = 0
+Dev.position.y = 0
+Dev.rotation.set(0, 0, 0);
+Dev.color = 0xFFFFFF
+
+scene.add(Dev)
+Dev.sync()
+
+
+const buttonMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00});
+const buttonGeometry = new THREE.BoxGeometry(2, 1, 0.05);
+const buttonMesh = new THREE.Mesh(buttonGeometry, buttonMaterial);
+buttonMesh.position.set(0, 5, -5);
+
+buttonMesh.addEventListener('click', function() {
+  window.location.href = "/halaman-baru";
+});
+
+scene.add(buttonMesh);
+
+
+
 /*
 const geometry = new THREE.PlaneGeometry( 14, 20, 32, 80 )
 const material = new THREE.MeshBasicMaterial( { color: 0x33C3F0 } );
@@ -114,8 +193,9 @@ const card = new THREE.Mesh( geometry, material );
 
 scene.add(card)
 */
-const pointLight = new THREE.PointLight(0xffffff)
-pointLight.position.set(25,25,25)
+
+const pointLight = new THREE.PointLight(0xffffff);
+pointLight.position.set(10, 10, 10);
 
 const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(pointLight, ambientLight)
@@ -129,9 +209,9 @@ scene.background = bgTexture;
 function animete() {
   requestAnimationFrame( animete );
 
-  Vite.rotation.x += 0.01;
+  Vite.rotation.x += 0.005;
   Vite.rotation.y += 0.005;
-  Vite.rotation.z += 0.01;
+  Vite.rotation.z += 0.001;
 
   controls.update();
 
