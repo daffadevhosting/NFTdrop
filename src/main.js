@@ -123,9 +123,10 @@ function Stars() {
 
 Array(200).fill().forEach(Stars)
 
+const TextMaterial = new THREE.MeshStandardMaterial( );
 const Header = new Text()
-
 Header.text = 'Wellcome World!'
+Header.material = TextMaterial
 Header.fontSize = 1
 Header.position.z = -5
 Header.position.x = -2
@@ -137,6 +138,7 @@ Header.sync()
 const SubTitle = new Text()
 
 SubTitle.text = 'Ini Sub Title'
+SubTitle.material = TextMaterial
 SubTitle.fontSize = 1
 SubTitle.position.z = 5
 SubTitle.position.x = -6
@@ -149,6 +151,7 @@ SubTitle.sync()
 const Description = new Text()
 
 Description.text = 'Get started your desired.'
+Description.material = TextMaterial
 Description.fontSize = 0.3
 Description.position.z = 0
 Description.position.x = 0
@@ -161,6 +164,7 @@ Description.sync()
 const Dev = new Text()
 
 Dev.text = 'Masih Tahap Pengembangan'
+Dev.material = TextMaterial
 Dev.fontSize = 1
 Dev.textAlign= 'center'
 Dev.position.z = 15
