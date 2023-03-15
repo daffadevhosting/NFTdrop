@@ -15,9 +15,9 @@
 }
 
 canvas {
-  position: fixed;
   top: 0;
   left: 0;
+  background: transparent;
 }
 #info {
 	position: absolute;
@@ -43,7 +43,6 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  overflow: hidden;
 }
 
 h1 {

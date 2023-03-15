@@ -1,5 +1,6 @@
 ## Getting Started
 
+-not yet responsive
 
 ### Tech 
 
