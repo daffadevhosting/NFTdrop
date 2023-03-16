@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import * as ThreeMeshUI from "three-mesh-ui";
-import FontJSON from '../fonts/MSDF/Roboto-msdf.json';
-import FontImage from '../fonts/MSDF/Roboto-msdf.png';
+//import FontJSON from './fonts/MSDF/Roboto-msdf.json';
+//import FontImage from './fonts/MSDF/Roboto-msdf.png';
 
 function Dev() {
   const component = new THREE.Object3D();
@@ -13,8 +13,8 @@ const containerText = new ThreeMeshUI.Block({
  height: 0.7,
  padding: 0.2,
  borderRadius: 0.08,
- fontFamily: fontName,
- fontTexture: fontName,
+ //fontFamily: fontName,
+ //fontTexture: fontName,
 });
 containerText.position.set( 0, 0, 0 );
 //

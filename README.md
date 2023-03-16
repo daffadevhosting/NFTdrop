@@ -1,6 +1,6 @@
 ## Getting Started
 
--not yet responsive viewport
+❌️ -not yet responsive viewport
 
 ### Tech 
 

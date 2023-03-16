@@ -1,10 +1,10 @@
 import * as THREE from 'three';
-import ImgContent1 from '../textures/0001.png'
-import ImgContent2 from '../textures/0002.png'
-import ImgContent3 from '../textures/0003.png'
-import ImgContent4 from '../textures/0004.png'
-import ImgContent5 from '../textures/0005.png'
-import ImgContent6 from '../textures/0006.png'
+import ImgContent1 from '/textures/0001.png'
+import ImgContent2 from '/textures/0002.png'
+import ImgContent3 from '/textures/0003.png'
+import ImgContent4 from '/textures/0004.png'
+import ImgContent5 from '/textures/0005.png'
+import ImgContent6 from '/textures/0006.png'
 
 function BoxGallery() {
   const component = new THREE.Object3D();

@@ -12,14 +12,14 @@ import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
 import BoxScene from './components/BoxScene';
 import BoxGallery from './components/BoxGallery';
 import DevComponent from './components/Dev';
+import sources from "./components/sources";
 import {Text} from 'troika-three-text';
-import earth from './textures/earth.jpg';
-import ImgContent1 from './textures/0001.png'
-import ImgContent2 from './textures/0002.png'
-import ImgContent3 from './textures/0003.png'
-import ImgContent4 from './textures/0004.png'
-import ImgContent5 from './textures/0005.png'
-import ImgContent6 from './textures/0006.png'
+import ImgContent1 from '/textures/0001.png'
+import ImgContent2 from '/textures/0002.png'
+import ImgContent3 from '/textures/0003.png'
+import ImgContent4 from '/textures/0004.png'
+import ImgContent5 from '/textures/0005.png'
+import ImgContent6 from '/textures/0006.png'
 
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -40,8 +40,16 @@ renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
 camera.position.setZ(0.5);
 
-//const componentDev = new DevComponent();
-//scene.add(componentDev);
+const urls = [
+  ImgContent1, ImgContent2,
+  ImgContent3, ImgContent4,
+  ImgContent5, ImgContent6
+];
+
+const cubeTexture = new THREE.CubeTextureLoader().load(urls);
+cubeTexture.mapping = THREE.CubeReflectionMapping;
+
+scene.background = cubeTexture;
 
 const myCompo = new BoxScene();
 scene.add(myCompo);
@@ -58,7 +66,6 @@ const Card2 = new THREE.Mesh(
 Card2.position.set(5, 3, -3);
 Card2.rotation.set(0, -1, 0);
 scene.add(Card2);
-
 
 const CardTexture = new THREE.TextureLoader().load(ImgContent4);
 
@@ -188,8 +195,6 @@ buttonMesh.addEventListener('click', function() {
 
 scene.add(buttonMesh);
 
-
-
 /*
 const geometry = new THREE.PlaneGeometry( 14, 20, 32, 80 )
 const material = new THREE.MeshBasicMaterial( { color: 0x33C3F0 } );
@@ -205,9 +210,17 @@ const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(pointLight, ambientLight)
 
 const controls = new OrbitControls(camera, renderer.domElement);
+
 /*
-const bgTexture = new THREE.TextureLoader().load(space);
-scene.background = bgTexture;
+let generator = new THREE.PMREMGenerator(renderer);
+new RGBELoader().load('./textures/HDRI-PACK/nebula0.hdr', (hdrmap) => {
+    // ...
+    let envmap = generator.fromEquirectangular(hdrmap);
+    const ballMaterial = {
+        // ...
+        envMap: envmap.texture
+    };
+});
 */
 
 function animete() {
