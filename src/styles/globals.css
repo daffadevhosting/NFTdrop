@@ -22,3 +22,15 @@ body {
   color: #e7e8e8;
   background: #000000;
 }
+  ::-webkit-scrollbar{
+      width: 0px;
+  }
+  ::-webkit-scrollbar-track{
+      //background: transparent;
+  }
+  ::-webkit-scrollbar-thumb{
+      //background: transparent;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+      //background: transparent;
+  }

@@ -1,4 +1,4 @@
-import './style.css';
+import './styles/style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -60,6 +60,52 @@ scene.add(myCompo);
 const myGallery = new BoxGallery();
 scene.add(myGallery);
 
+const urlImg = [
+  '/textures/0001.png', '/textures/0002.png', '/textures/0003.png', '/textures/0004.png', '/textures/0005.png', '/textures/0006.png',
+];
+
+const cardTextures = urlImg.map(url => new THREE.TextureLoader().load(urlImg));
+const CardGeometry = new THREE.PlaneGeometry(5, 5, 5);
+
+let currentTextureCard = 0;
+let animating = false;
+
+const animateSlide = (mesh, toPosition, duration) => {
+  animating = true;
+  const fromPosition = mesh.position.clone();
+  const direction = toPosition.clone().sub(fromPosition);
+  const startTime = Date.now();
+  const animate = () => {
+    const elapsed = Date.now() - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    mesh.position.copy(fromPosition).add(direction.clone().multiplyScalar(progress));
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      animating = false;
+    }
+  }
+  animate();
+}
+
+const animCard = new THREE.Mesh(CardGeometry, new THREE.MeshBasicMaterial({ map: cardTextures[currentTextureCard] }));
+animCard.position.set(-2, -5, -3);
+animCard.rotation.set(0, 0.1, 0);
+scene.add(animCard);
+
+const changeTextureCard = () => {
+  if (!animating) {
+    currentTextureCard = (currentTextureCard + 1) % cardTextures.length;
+    animateSlide(animCard, new THREE.Vector3(-3, -5, -3), 1000);
+    setTimeout(() => {
+      animCard.material.map = cardTextures[currentTextureCard];
+      animateSlide(animCard, new THREE.Vector3(3, -5, -3), 1000);
+    }, 1000);
+  }
+}
+
+setInterval(changeTextureCard, 5000);
+
 const CardTexture2 = new THREE.TextureLoader().load(ImgContent2);
 
 const Card2 = new THREE.Mesh(
@@ -76,7 +122,7 @@ const Card = new THREE.Mesh(
     new THREE.PlaneGeometry(5, 5, 5),
     new THREE.MeshBasicMaterial( { map: CardTexture } )
 );
-Card.position.set(-5, -2, -3);
+Card.position.set(-6, -2, -3);
 Card.rotation.set(0, 1, 0);
 scene.add(Card);
 
@@ -89,7 +135,6 @@ const Card1 = new THREE.Mesh(
 Card1.position.set(5, -2, 3);
 Card1.rotation.set(0, -1, 0);
 scene.add(Card1);
-
 
 const textureFront = new THREE.TextureLoader().load(ImgContent1);
 const textureBack = new THREE.TextureLoader().load(ImgContent2);
@@ -114,11 +159,22 @@ const materialArray = [
   materialRight
 ];
 
-    const geometry = new THREE.BoxGeometry(20, 20, 20, 80);
-    const material = materialArray;
-    const Vite = new THREE.Mesh(geometry, material);
+const geometry = new THREE.BoxGeometry(20, 20, 20);
+const Vite = new THREE.Mesh(geometry, materialArray);
 
 scene.add(Vite);
+
+let currentTexture = 0;
+
+function changeTexture() {
+  currentTexture++;
+  if (currentTexture >= materialArray.length) {
+    currentTexture = 0;
+  }
+  Vite.material = materialArray[currentTexture];
+}
+
+setInterval(changeTexture, 3000);
 
 function Stars() {
   const geometry = new THREE.SphereGeometry(0.15, 20, 18);
