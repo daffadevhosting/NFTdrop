@@ -20,6 +20,8 @@
     top: 0;
     left: 0;
     width: 100%;
+    background-image: linear-gradient(180deg, black, #00000050, transparent 100%);
+    pointer-events: none;
 }
 .navbar {
     display: flex;
@@ -29,6 +31,12 @@
     margin: auto;
     height: 62px;
     padding: 10px;
+}
+.titleHead {
+    font-size: 1.8rem;
+}
+.connectBtn {
+    pointer-events: painted !important;
 }
 .title a {
   color: #f213a4;

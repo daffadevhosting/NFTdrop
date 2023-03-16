@@ -51,6 +51,9 @@ cubeTexture.mapping = THREE.CubeReflectionMapping;
 
 scene.background = cubeTexture;
 
+const myDev = new DevComponent();
+scene.add(myDev);
+
 const myCompo = new BoxScene();
 scene.add(myCompo);
 
