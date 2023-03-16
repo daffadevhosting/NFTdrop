@@ -249,7 +249,7 @@ const buttonMesh = new THREE.Mesh(buttonGeometry, buttonMaterial);
 buttonMesh.position.set(0, 5, -5);
 
 buttonMesh.addEventListener('click', function() {
-  window.location.href = "/halaman-baru";
+  window.scrollBy(0, 1250);
 });
 
 scene.add(buttonMesh);
@@ -269,18 +269,6 @@ const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(pointLight, ambientLight)
 
 const controls = new OrbitControls(camera, renderer.domElement);
-
-/*
-let generator = new THREE.PMREMGenerator(renderer);
-new RGBELoader().load('./textures/HDRI-PACK/nebula0.hdr', (hdrmap) => {
-    // ...
-    let envmap = generator.fromEquirectangular(hdrmap);
-    const ballMaterial = {
-        // ...
-        envMap: envmap.texture
-    };
-});
-*/
 
 function animete() {
   requestAnimationFrame( animete );

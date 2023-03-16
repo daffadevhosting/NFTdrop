@@ -1,6 +1,6 @@
 ## On Progress
 
-❌️ -not yet responsive viewport
+✅️ responsive viewport
 
 ### Tech 
 

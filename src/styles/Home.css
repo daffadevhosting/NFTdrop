@@ -38,6 +38,15 @@
 .connectBtn {
     pointer-events: painted !important;
 }
+.menu_btn {
+    position: absolute;
+    padding: 8px;
+    text-align: center;
+    bottom: 20px;
+    right: 45px;
+    width: 40px;
+    height: 40px;
+}
 .title a {
   color: #f213a4;
   text-decoration: none;
