@@ -7,7 +7,6 @@ export default function Home() {
 <div className="container">
   <main className="main" id="section3D">
 <Header/>
-<MenuBtn/>
   </main>
     <main className="main" id="sectionDrop">
         <h1 className="title">
