@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 html,
 body {
   padding: 0;
   margin: 0;
-  scroll-behavior: smooth;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
@@ -21,17 +21,7 @@ html {
 }
 body {
   color: #e7e8e8;
-  background: #000000;
+  background: #0f1318;
+  transition: all 0.5s ease-in-out;
+  overflow: hidden;
 }
-  ::-webkit-scrollbar{
-      width: 0px;
-  }
-  ::-webkit-scrollbar-track{
-      //background: transparent;
-  }
-  ::-webkit-scrollbar-thumb{
-      //background: transparent;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-      //background: transparent;
-  }

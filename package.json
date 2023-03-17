@@ -1,5 +1,5 @@
 {
-  "name": "vite-web3",
+  "name": "3dweb-nftdrop",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -9,12 +9,10 @@
     "deploy": "yarn build && npx thirdweb@latest upload dist"
   },
   "dependencies": {
-    "@react-three/drei": "^9.57.3",
-    "@react-three/fiber": "^8.12.0",
     "@thirdweb-dev/react": "^3.9.0",
     "@thirdweb-dev/sdk": "^3.9.0",
-    "@types/three": "^0.149.0",
     "ethers": "^5.7.2",
+    "gsap": "^3.11.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "three": "^0.150.1"
