@@ -1,12 +1,15 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
 import CanvasLoader from "./Loader";
 
+const gltfloader = new DRACOLoader();
+gltfloader.setDecoderPath('/draco/gltf/');
 
 const GltfLoader = ({ isMobile }) => {
-  const gltfloader = useGLTF("/models/gltf/hulk_buster/scene.gltf");
+  const gltfloader = useGLTF("/models/gltf/buster_drone/scene.gltf");
 
   return (
     <mesh>
@@ -59,7 +62,6 @@ const GltfLoaderCanvas = () => {
       frameloop='demand'
       shadows
       dpr={[1, 2]}
-      pixelRatio={window.devicePixelRatio}
       camera={{ position: [0, 2, 2] }}
       gl={{ preserveDrawingBuffer: true }}
     >
