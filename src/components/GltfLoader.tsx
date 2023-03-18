@@ -62,7 +62,7 @@ const GltfLoaderCanvas = () => {
       frameloop='demand'
       shadows
       dpr={[1, 2]}
-      camera={{ position: [0, 2, 2] }}
+      camera={{ position: [0, 0, 5] }}
       gl={{ preserveDrawingBuffer: true }}
     >
       <Suspense fallback={<CanvasLoader />}>
