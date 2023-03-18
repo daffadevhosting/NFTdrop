@@ -6,7 +6,7 @@ import CanvasLoader from "./Loader";
 
 
 const GltfLoader = ({ isMobile }) => {
-  const gltfloader = useGLTF("/models/gltf/buster_drone/scene.gltf");
+  const gltfloader = useGLTF("/models/gltf/hulk_buster/scene.gltf");
 
   return (
     <mesh>
@@ -59,7 +59,8 @@ const GltfLoaderCanvas = () => {
       frameloop='demand'
       shadows
       dpr={[1, 2]}
-      camera={{ position: [20, 3, 5], fov: 25 }}
+      pixelRatio={window.devicePixelRatio}
+      camera={{ position: [0, 2, 2] }}
       gl={{ preserveDrawingBuffer: true }}
     >
       <Suspense fallback={<CanvasLoader />}>
