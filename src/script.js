@@ -9,6 +9,7 @@ import { CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 import { TWEEN } from 'three/addons/libs/tween.module.min.js';
 import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
+import PreLoader from './components/Preload';
 import BoxScene from './components/BoxScene';
 import BoxGallery from './components/BoxGallery';
 import DevComponent from './components/Dev';
@@ -230,6 +231,8 @@ Dev.color = 0xFFFFFF
 scene.add(Dev)
 Dev.sync()
 
+const myPreLoader = new PreLoader();
+scene.add(myPreLoader);
 
 const buttonMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00});
 const buttonGeometry = new THREE.BoxGeometry(2, 1, 0.05);
@@ -257,6 +260,11 @@ const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(pointLight, ambientLight)
 
 const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true
+controls.enablePan = true
+controls.enableZoom = true
+controls.autoRotate = false
+controls.autoRotateSpeed = 0
 
 //Resizer
 window.addEventListener("resize", () => {

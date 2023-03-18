@@ -4,53 +4,69 @@ import {
   useActiveClaimConditionForWallet,
   useAddress,
   useClaimConditions,
-  useClaimedNFTSupply,
   useClaimerProofs,
   useClaimIneligibilityReasons,
   useContract,
   useContractMetadata,
-  useUnclaimedNFTSupply,
+  useTotalCirculatingSupply,
   Web3Button,
 } from "@thirdweb-dev/react";
 import { BigNumber, utils } from "ethers";
 import Timer from "./Timer";
 import { parseIneligibility } from "/utils/parseIneligibility";
+import CharacterImg from '/models/iron-man.png';
+import contractImage from '/models/ironman.png';
 import "../styles/Home.css";
 
 // Masukkan alamat Kontrak NFT drop kamu
-const DropAddress = "0x6Bc4C7b6C0aF7F44f592E66A8b92e8D7d269a608";
+const myEditionDropContractAddress = "0x2d5c1cC972056C17Fca6619003a6502F641b015E";
+const Title = 'IronMan Card'
+const tokenId = 1;
+
 
 export default function Body() {
-  const { contract: nftDrop } = useContract(DropAddress);
-
   const address = useAddress();
   const [quantity, setQuantity] = useState(1);
+  const { contract: editionDrop } = useContract(myEditionDropContractAddress);
+  const { data: contractMetadata } = useContractMetadata(editionDrop);
 
-  const { data: contractMetadata } = useContractMetadata(nftDrop);
-
-  const claimConditions = useClaimConditions(nftDrop);
-
+  const claimConditions = useClaimConditions(editionDrop);
   const activeClaimCondition = useActiveClaimConditionForWallet(
-    nftDrop,
-    address || ""
+    editionDrop,
+    address,
+    tokenId
   );
-  const claimerProofs = useClaimerProofs(nftDrop, address || "");
-  const claimIneligibilityReasons = useClaimIneligibilityReasons(nftDrop, {
-    quantity,
-    walletAddress: address || "",
-  });
-  const unclaimedSupply = useUnclaimedNFTSupply(nftDrop);
-  const claimedSupply = useClaimedNFTSupply(nftDrop);
+  const claimerProofs = useClaimerProofs(editionDrop, address || "", tokenId);
+  const claimIneligibilityReasons = useClaimIneligibilityReasons(
+    editionDrop,
+    {
+      quantity,
+      walletAddress: address || "",
+    },
+    tokenId
+  );
+
+  const claimedSupply = useTotalCirculatingSupply(editionDrop, tokenId);
+
+  const totalAvailableSupply = useMemo(() => {
+    try {
+      return BigNumber.from(activeClaimCondition.data?.availableSupply || 0);
+    } catch {
+      return BigNumber.from(1_000_000);
+    }
+  }, [activeClaimCondition.data?.availableSupply]);
 
   const numberClaimed = useMemo(() => {
     return BigNumber.from(claimedSupply.data || 0).toString();
   }, [claimedSupply]);
 
   const numberTotal = useMemo(() => {
-    return BigNumber.from(claimedSupply.data || 0)
-      .add(BigNumber.from(unclaimedSupply.data || 0))
-      .toString();
-  }, [claimedSupply.data, unclaimedSupply.data]);
+    const n = totalAvailableSupply.add(BigNumber.from(claimedSupply.data || 0));
+    if (n.gte(1_000_000)) {
+      return "";
+    }
+    return n.toString();
+  }, [totalAvailableSupply, claimedSupply]);
 
   const priceToMint = useMemo(() => {
     const bnPrice = BigNumber.from(
@@ -103,11 +119,9 @@ export default function Body() {
       }
     }
 
-    const maxAvailable = BigNumber.from(unclaimedSupply.data || 0);
-
     let max;
-    if (maxAvailable.lt(bnMaxClaimable)) {
-      max = maxAvailable;
+    if (totalAvailableSupply.lt(bnMaxClaimable)) {
+      max = totalAvailableSupply;
     } else {
       max = bnMaxClaimable;
     }
@@ -118,7 +132,7 @@ export default function Body() {
     return max.toNumber();
   }, [
     claimerProofs.data?.maxClaimable,
-    unclaimedSupply.data,
+    totalAvailableSupply,
     activeClaimCondition.data?.maxClaimableSupply,
     activeClaimCondition.data?.maxClaimablePerWallet,
   ]);
@@ -158,17 +172,9 @@ export default function Body() {
 
   const isLoading = useMemo(() => {
     return (
-      activeClaimCondition.isLoading ||
-      unclaimedSupply.isLoading ||
-      claimedSupply.isLoading ||
-      !nftDrop
+      activeClaimCondition.isLoading || claimedSupply.isLoading || !editionDrop
     );
-  }, [
-    activeClaimCondition.isLoading,
-    nftDrop,
-    claimedSupply.isLoading,
-    unclaimedSupply.isLoading,
-  ]);
+  }, [activeClaimCondition.isLoading, editionDrop, claimedSupply.isLoading]);
 
   const buttonLoading = useMemo(
     () => isLoading || claimIneligibilityReasons.isLoading,
@@ -176,7 +182,7 @@ export default function Body() {
   );
   const buttonText = useMemo(() => {
     if (isSoldOut) {
-      return "Terjual Habis";
+      return "Habis Terjual";
     }
 
     if (canClaim) {
@@ -192,10 +198,10 @@ export default function Body() {
       return parseIneligibility(claimIneligibilityReasons.data, quantity);
     }
     if (buttonLoading) {
-      return "Memeriksa Kelayakan...";
+      return "Memeriksa Kelayakan Akun...";
     }
 
-    return "Mengklaim tidak tersedia";
+    return "Klaim NFT belum tersedia";
   }, [
     isSoldOut,
     canClaim,
@@ -205,6 +211,7 @@ export default function Body() {
     priceToMint,
     quantity,
   ]);
+
   return (
     <>
     <div className="mint_container">
@@ -218,20 +225,20 @@ export default function Body() {
           <div className="card">
               <div className="wrapper">
                 {/* Gambar */}
-                <MediaRenderer
+                <img
                   className="cover_image"
-                  src={contractMetadata?.image}
+                  src={contractImage}
                   alt={`${contractMetadata?.name} preview image`}
                 />
               </div>
             {/* Nama NFT kamu */}
               <div className="title">
-                <h1>{contractMetadata?.name}</h1>
+                <h1>{Title}</h1>
               </div>
-            {/* Descrip NFT */}
-            <MediaRenderer
+            {/* Cover NFT */}
+            <img
               className="character"
-              src={contractMetadata?.image}
+              src={CharacterImg}
               alt={`${contractMetadata?.name} preview image`}
             />
           </div>
@@ -243,11 +250,11 @@ export default function Body() {
                   <p>Total Minted</p>
                 </div>
                 <div className="mintAreaRight">
-                  {claimedSupply && unclaimedSupply ? (
+                  {claimedSupply ? (
                     <p>
                       <b>{numberClaimed}</b>
                       {" / "}
-                      {numberTotal}
+                      {numberTotal || "∞"}
                     </p>
                   ) : (
           <div className="loading">
@@ -263,13 +270,8 @@ export default function Body() {
               ) ? (
                 <div className="text_center">
                   <h2>
-                    nftDrop ini belum siap untuk Mint.
+                    nft ini belum siap untuk Mint.
                   </h2>
-                </div>
-              ) : !activeClaimCondition.data && claimConditions.data ? (
-                <div>
-                  <h2>Drop dimulai dalam: </h2>
-                  <Timer date={claimConditions.data[0].startTime} />
                 </div>
               ) : (
                 <>
@@ -294,16 +296,17 @@ export default function Body() {
                       </div>
                     ) : (
                       <Web3Button
-                        contractAddress={nftDrop?.getAddress() || ""}
-                        action={(cntr) => cntr.erc721.claim(quantity)}
+                        className="web3Button"
+                        contractAddress={editionDrop?.getAddress() || ""}
+                        action={(cntr) => cntr.erc1155.claim(tokenId, quantity)}
                         isDisabled={!canClaim || buttonLoading}
                         onError={(err) => {
                           console.error(err);
-                          alert("Error claiming NFTs");
+                          alert("Klaim NFT Error");
                         }}
                         onSuccess={() => {
                           setQuantity(1);
-                          alert("Successfully claimed NFTs");
+                          alert("Klaim NFT Success");
                         }}
                       >
                         {buttonLoading ? "Loading..." : buttonText}
