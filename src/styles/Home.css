@@ -95,19 +95,10 @@ section {
 
 .close_btn {
     position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
     right: 0;
     top: 0;
-    border: 1px solid #fff;
-    border-radius: 50%;
     width: 20px;
     height: 20px;
-    padding: 8px;
-    font-size: 25px;
-    font-weight: 700;
     margin: 20px;
     cursor: pointer;
     z-index: 10;
@@ -157,6 +148,7 @@ section:target h1 {
 }
 
 .mint_container {
+    max-width: 1140px;
     position: fixed;
     width: 100vw;
     height: 100dvh;

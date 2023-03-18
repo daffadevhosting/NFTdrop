@@ -1,0 +1,11 @@
+Model Information:
+* title:	iron man-hulk buster
+* source:	https://sketchfab.com/3d-models/iron-man-hulk-buster-9ed9c898bf824cae897afd1b6fdd5b1c
+* author:	Ganesh.Thapaliya (https://sketchfab.com/Ganesh.Thapaliya)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "iron man-hulk buster" (https://sketchfab.com/3d-models/iron-man-hulk-buster-9ed9c898bf824cae897afd1b6fdd5b1c) by Ganesh.Thapaliya (https://sketchfab.com/Ganesh.Thapaliya) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

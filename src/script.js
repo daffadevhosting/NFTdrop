@@ -1,5 +1,7 @@
 import './styles/Home.css';
 import * as THREE from 'three';
+import { gsap } from "gsap/dist/gsap";
+import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
@@ -26,10 +28,10 @@ import ImgContent6 from '/textures/0006.png'
 
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const canvas = document.querySelector('#webGL')
-const renderer = new THREE.WebGLRenderer({ canvas })
-renderer.setSize(window.innerWidth, window.innerHeight)
-renderer.setPixelRatio(2)
+const canvas = document.querySelector('#webGL');
+const renderer = new THREE.WebGLRenderer({ canvas });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio( window.devicePixelRatio );
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -192,10 +194,10 @@ Header.sync()
 
 const SubTitle = new Text()
 
-SubTitle.text = 'Ini Sub Title'
+SubTitle.text = 'Hanya untuk Testing.'
 SubTitle.material = TextMaterial
 SubTitle.fontSize = 1
-SubTitle.position.z = 5
+SubTitle.position.z = 8
 SubTitle.position.x = -6
 SubTitle.rotation.set(0, 1, 0);
 SubTitle.color = 0xFFFFFF
@@ -218,7 +220,7 @@ Description.sync()
 
 const Dev = new Text()
 
-Dev.text = 'Masih Tahap Pengembangan'
+Dev.text = 'Happy Coding...!!'
 Dev.material = TextMaterial
 Dev.fontSize = 1
 Dev.textAlign= 'center'
