@@ -1,21 +1,31 @@
 import React from "react";
 import { ConnectWallet } from "@thirdweb-dev/react";
+import { SlGrid, SlDrop, SlFeed, SlGhost } from "react-icons/sl";
 import "../styles/Home.css";
 
 export default function Header() {
+
+function getfocus(){
+    document.getElementByClassName('nav_link').focus()
+}
+
+function losefocus(){
+    document.getElementByClassName('nav_link').blur()
+}
+
   return (
 <nav>
-   <a href="#NFTgallery">
-   <i className="fas fa-images"></i>
+   <a className="nav_link" href="#NFTgallery">
+   <SlGrid/>
    </a>
-   <a href="#NFTdrop">
-   <i className="fas fa-tint"></i>
+   <a className="nav_link" href="#NFTdrop">
+   <SlDrop/>
    </a>
-   <a href="#Blog">
-   <i className="fas fa-blog"></i>
+   <a className="nav_link" href="#Blog">
+   <SlFeed/>
    </a>
-   <a href="#Account">
-   <i className="far fa-user"></i>
+   <a className="nav_link" href="#Account">
+   <SlGhost/>
    </a>
  </nav>
   );

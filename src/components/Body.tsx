@@ -275,7 +275,7 @@ export default function Body() {
                 </div>
               ) : (
                 <>
-                <div className="hidden">
+                {/*<div className="hidden">
                 <p>Quantity</p>
                 <div className="qtyCounter">
                 <button
@@ -288,7 +288,7 @@ export default function Body() {
                       onClick={() => setQuantity(quantity + 1)}
                       disabled={quantity >= maxClaimable}></button>
                 </div>
-                </div>
+                </div>*/}
                 <div className="btnMint">
                 {isSoldOut ? (
                       <div>

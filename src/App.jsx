@@ -4,36 +4,41 @@ import BodyNftDrop from "./components/Body";
 import "./styles/Home.css";
 
 export default function Home() {
+
+function closeBtn() {
+    location.replace("#");   
+}
+
   return (
 <>
 <NavBar />
     <div className="container">
           <section id='NFTgallery'>
-          <a href="#">
+          <button onClick={closeBtn}>
           <i className="far fa-times-circle close_btn"></i>
-          </a>
+          </button>
             <h1>Other Canvas</h1>
             <p> /on progress</p>
           </section>
   
-          <section id= 'NFTdrop'>
-          <a href="#">
+          <section id='NFTdrop'>
+          <button onClick={closeBtn}>
           <i className="far fa-times-circle close_btn"></i>
-          </a>
+          </button>
             <BodyNftDrop />
           </section>
   
-         <section id= 'Blog'>
-          <a href="#">
+         <section id='Blog'>
+          <button onClick={closeBtn}>
           <i className="far fa-times-circle close_btn"></i>
-          </a>
+          </button>
            <h1>Blogs</h1>
           </section>
   
-         <section id= 'Account'>
-          <a href="#">
+         <section id='Account'>
+          <button onClick={closeBtn}>
           <i className="far fa-times-circle close_btn"></i>
-          </a>
+          </button>
            <h1>Nft owner Account</h1>
           </section>
     </div>

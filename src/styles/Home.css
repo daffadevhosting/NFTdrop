@@ -48,9 +48,14 @@ nav a {
     text-align: center;
     transition: all 0.5s ease-in-out;
 }
-nav a > .fas:hover, .far:hover, .fa:hover, .fab:hover {
+nav a:hover,
+nav a:target:active {
     transform: scale(1.8) rotate(-15deg);
     transition: all 0.5s ease-in-out;
+}
+.nav_link:hover,
+.nav_link:active {
+    color: #8400ff;
 }
 
 nav {
@@ -105,6 +110,7 @@ section {
     font-weight: 700;
     margin: 20px;
     cursor: pointer;
+    z-index: 10;
 }
 
 section h1 {
@@ -215,7 +221,7 @@ section:target h1 {
 }
 
 .title h1 {
-    font-size: 20px;
+    font-size: 1.5rem;
     text-align: center;
     background: linear-gradient(90deg, #c51313 1.84%, #FFC107 102.67%);
     -webkit-background-clip: text;
@@ -237,7 +243,7 @@ section:target h1 {
   content: "";
   opacity: 0;
   width: 100%;
-  height: 80px;
+  height: 0px;
   transition: all 0.5s;
   position: absolute;
   left: 0;
@@ -265,6 +271,7 @@ section:target h1 {
 
 .card:hover .wrapper::before,
 .wrapper::after {
+  backdrop-filter: blur(5px);
   opacity: 1;
 }
 

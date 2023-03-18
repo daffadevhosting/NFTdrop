@@ -261,10 +261,9 @@ scene.add(pointLight, ambientLight)
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true
-controls.enablePan = true
-controls.enableZoom = true
-controls.autoRotate = false
-controls.autoRotateSpeed = 0
+controls.enablePan = false
+controls.autoRotate = true
+controls.autoRotateSpeed = 0.01
 
 //Resizer
 window.addEventListener("resize", () => {
